@@ -1,0 +1,80 @@
+/ 1. Objects and Properties
+// Define an object structure for a single student
+const student = {
+    id: 101,
+    name: "Alice Johnson",
+    grades: [90, 85, 92], // Array of grades
+    major: "Computer Science"
+};
+
+// Accessing Object Properties
+console.log(Student Name: ${student.name});
+console.log(First Grade: ${student.grades[0]});
+
+---
+
+// 2. Array Creation and Manipulation
+// Create an Array of Objects to hold all students
+let studentsData = [
+    student, // Alice
+    { id: 102, name: "Bob Smith", grades: [75, 80, 78], major: "Physics" },
+    { id: 103, name: "Charlie Brown", grades: [98, 95, 100], major: "Computer Science" },
+    { id: 104, name: "Diana Prince", grades: [60, 65, 70], major: "Art" }
+];
+// Array Manipulation: Adding a new student
+studentsData.push({ id: 105, name: "Eve Adams", grades: [88, 91, 85], major: "Mathematics" });
+console.log("\nTotal Students after adding Eve:", studentsData.length);
+
+// Array Manipulation: Removing the last element (if needed)
+// studentsData.pop(); 
+
+---
+
+// Helper function to calculate average grade for a student
+const calculateAverage = (grades) => {
+    // Check if the array is empty to prevent division by zero
+    if (grades.length === 0) return 0;
+    
+    const sum = grades.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    return sum / grades.length;
+};
+/ 3. Array Methods: forEach, map, filter
+
+// A. forEach: Iterate through the array and perform an action (like logging)
+console.log("\n--- Student Roster (forEach) ---");
+studentsData.forEach(student => {
+    const avg = calculateAverage(student.grades);
+    console.log(ID: ${student.id}, Name: ${student.name}, Average Grade: ${avg.toFixed(2)});
+});
+
+// B. map: Create a new array by transforming each element in the original array
+// Calculate the average grade and add it as a new property to each student object
+const studentsWithAverages = studentsData.map(student => {
+    return {
+        ...student, // Copy all existing properties
+        average: calculateAverage(student.grades).toFixed(2) // Add new 'average' property
+    };
+});
+console.log("\n--- Students with Calculated Averages (map) ---");
+// Display the new array structure for the first student
+console.log(studentsWithAverages[0]); 
+// 
+// C. filter: Create a new array containing only elements that satisfy a condition
+// Get a list of students whose average grade is 85 or above (A- or better)
+const topPerformers = studentsWithAverages.filter(student => {
+    return parseFloat(student.average) >= 85;
+});
+console.log("\n--- Top Performers (filter) ---");
+topPerformers.forEach(student => {
+    console.log(${student.name} (${student.major}) - Avg: ${student.average});
+});
+// ```
+### Summary of Concepts Used:
+
+* *Objects and Properties:* Used to define individual students ({ id: ..., name: ..., grades: [...] }).
+* *Array Creation/Manipulation:* The studentsData array holds all student objects, and push() was used to add a new student.
+* **forEach**: Used to loop through the studentsData array and print information for every student.
+* **map**: Used to create the studentsWithAverages array, adding a new calculated property (average) to each student object.
+* **filter**: Used to create the topPerformers array, including only students who met the average >= 85 condition.
+
+Would you like me to focus on a specific method (like map) and provide a more detailed example, or perhaps write a function to find a student by their ID?

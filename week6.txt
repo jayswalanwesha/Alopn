@@ -1,0 +1,125 @@
+html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="style.css"> </head>
+<body>
+
+    <div class="container">
+        <h1>My To-Do List</h1>
+        <div class="input-area">
+            <input type="text" id="taskInput" placeholder="Enter a new task...">
+            <button id="addButton">Add Task</button>
+        </div>
+        
+        <ul id="taskList">
+            </ul>
+    </div>
+
+    <script src="script.js"></script> </body>
+</html>
+css
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.input-area {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#taskInput {
+ flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#addButton {
+    padding: 10px 15px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#addButton:hover {
+    background-color: #4cae4c;
+}
+
+#taskList {
+    list-style: none;
+    padding: 0;
+}
+
+#taskList li {
+    background: #eee;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+javascript
+/ 1. DOM Manipulation: Use querySelector to get elements
+const taskInput = document.querySelector('#taskInput');
+const addButton = document.querySelector('#addButton');
+const taskList = document.querySelector('#taskList');
+
+// 2. Event Handling: Define the function to add a new task
+function addTask() {
+    const taskText = taskInput.value.trim(); // Get the text and remove whitespace
+
+    // Check if the input is not empty
+    if (taskText === '') {
+        alert('Please enter a task.');
+        return; // Stop the function if the input is empty
+    }
+
+    // DOM Manipulation: Create a new list item (li) and set its content
+    const listItem = document.createElement('li');
+    listItem.textContent = taskText;
+
+    // DOM Manipulation: Append the new li to the ul
+    taskList.appendChild(listItem);
+
+    // Clear the input field after adding the task
+    taskInput.value = '';
+}
+
+// 3. Event Handling: Attach the addTask function to the 'click' event of the button
+addButton.addEventListener('click', addTask);
+
+// Optional: Allow adding tasks by pressing the 'Enter' key in the input field
+taskInput.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        addTask();
+ addTask();
+    }
+});

@@ -1,0 +1,70 @@
+/ --- 1. Global Scope Example ---
+// Variables declared outside of any function are in the Global Scope.
+// They can be accessed and modified from anywhere in the script.
+let globalValue = 10;
+
+function showGlobalScope() {
+  console.log("1. Inside function (Global Scope): globalValue is", globalValue); // Accessing the global variable
+}
+
+showGlobalScope();
+
+// --- 2. Function Types and Local Scope ---
+
+/**
+ * Function Declaration with Local Scope
+ * The 'localValue' variable is only accessible inside this function.
+ * Trying to access it outside will result in an error.
+ */
+function addNumbers(a, b) {
+  // 'localValue' is in the Local Scope of addNumbers
+  let localValue = a + b;
+  console.log("2. Inside addNumbers (Local Scope): localValue is", localValue);
+  
+  // Accessing and modifying the Global variable is possible but often discouraged (side effect)
+  globalValue = localValue + 5; 
+return localValue; // Returns the result
+}
+
+// Function Call and Return Value
+let sumResult = addNumbers(5, 7); 
+console.log("3. Outside function (Return Value): sumResult is", sumResult);
+console.log("4. Outside function (Modified Global Scope): globalValue is now", globalValue);
+
+// This would cause an error (ReferenceError) because localValue is not defined globally.
+// console.log("Trying to access localValue outside:", localValue); 
+
+console.log("-----------------------------------------");
+
+// ===========================================
+// PROJECT: Unit Converter (Celsius to Fahrenheit)
+// ===========================================
+
+/**
+ * Converts a temperature from Celsius to Fahrenheit.
+ * Formula: F = C * 9/5 + 32
+ * * @param {number} celsius The temperature in Celsius.
+ * @returns {number} The temperature in Fahrenheit.
+ */
+function convertCelsiusToFahrenheit(celsius) {
+  // Use a precise conversion factor for 9/5
+  const conversionFactor = 1.8; 
+  
+  // Calculate Fahrenheit
+  let fahrenheit = (celsius * conversionFactor) + 32;
+  
+  // Use toFixed(2) to round to two decimal places for cleaner output
+  return parseFloat(fahrenheit.toFixed(2)); 
+}
+// Test the Unit Converter Function
+let tempCelsius1 = 0;
+let tempFahrenheit1 = convertCelsiusToFahrenheit(tempCelsius1);
+console.log(Unit Converter: ${tempCelsius1}°C is equal to ${tempFahrenheit1}°F); // Output: 0°C is equal to 32°F
+
+let tempCelsius2 = 25;
+let tempFahrenheit2 = convertCelsiusToFahrenheit(tempCelsius2);
+console.log(Unit Converter: ${tempCelsius2}°C is equal to ${tempFahrenheit2}°F); // Output: 25°C is equal to 77°F
+
+let tempCelsius3 = 100;
+let tempFahrenheit3 = convertCelsiusToFahrenheit(tempCelsius3);
+console.log(Unit Converter: ${tempCelsius3}°C is equal to ${tempFahrenheit3}°F); // Output: 100°C is equal to 212°F

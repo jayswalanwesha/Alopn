@@ -1,0 +1,53 @@
+**
+ * Number Guessing Game using Conditionals and a Loop
+ * * Topics covered:
+ * - Conditionals (if, else if, else)
+ * - Loop (while)
+ * - Basic input/output (prompt, alert)
+ * - Math functions (Math.random, Math.floor)
+ */
+
+function numberGuessingGame() {
+    // 1. Generate a random number between 1 and 100 (inclusive)
+    const secretNumber = Math.floor(Math.random() * 100) + 1;
+    let guess = 0;
+    let attempts = 0;
+
+    alert("Welcome to the Number Guessing Game! I've picked a number between 1 and 100.");
+
+    // 2. Use a while loop to keep the game going until the guess is correct
+    // The loop continues as long as the guess does not match the secretNumber
+    while (guess !== secretNumber) {
+        // Increment the attempt counter
+        attempts++;
+
+        // Get the user's guess (prompt returns a string, so we convert it to an integer)
+        const userInput = prompt(Attempt #${attempts}: Enter your guess (between 1 and 100):);
+        
+        // Check if the user pressed Cancel or entered nothing
+        if (userInput === null || userInput.trim() === "") {
+            alert("Game cancelled. The secret number was: " + secretNumber);
+            return; // Exit the function
+        }
+guess = parseInt(userInput, 10); // Convert input to an integer
+
+        // 3. Use conditionals (if/else if/else) to provide hints
+        if (isNaN(guess) || guess < 1 || guess > 100) {
+            alert("Please enter a valid number between 1 and 100.");
+            // Decrement attempts as this wasn't a valid guess
+            attempts--; 
+        } else if (guess < secretNumber) {
+            alert("Too low! Try a higher number.");
+        } else if (guess > secretNumber) {
+            alert("Too high! Try a lower number.");
+        } 
+        // If the guess is correct, the loop condition (guess !== secretNumber) will be false, 
+        // and the loop will terminate.
+    }
+
+    // 4. Game over message (executed when the loop terminates)
+    alert(🎉 Congratulations! You guessed the number ${secretNumber} correctly in ${attempts} attempts!);
+}
+
+// Start the game
+numberGuessingGame();
