@@ -1,0 +1,91 @@
+// 1. Data to be stored (e.g., a list of notes)
+const notes = [
+  { id: 1, title: "Week 9 Topic", content: "Learn localStorage and JSON." },
+  { id: 2, title: "Project Idea", content: "Build a persistent Notes App." }
+];
+
+// 2. Storing Data (Serialization)
+// localStorage can only store strings, so we must convert the JavaScript object/array to a JSON string.
+function saveNotes(notesArray) {
+  try {
+    const notesJSON = JSON.stringify(notesArray);
+    // The key is 'notesData', the value is the JSON string
+    localStorage.setItem('notesData', notesJSON);
+    console.log("Notes successfully saved to localStorage!");
+    // Example of saved string:
+    // '[{"id":1,"title":"Week 9 Topic",...}, {"id":2,"title":"Project Idea",...}]'
+  } catch (error) {
+    console.error("Error saving notes:", error);
+  }
+}
+
+// 3. Loading Data (Deserialization)
+// Retrieve the string and convert it back into a JavaScript object/array.
+function loadNotes() {
+  try {
+    const notesJSON = localStorage.getItem('notesData');
+
+    if (notesJSON === null) {
+      console.log("No notes found in localStorage. Returning an empty array.");
+      return []; // Return an empty array if nothing is stored yet
+    }
+
+    // Convert the JSON string back to a JavaScript object/array
+    const notesArray = JSON.parse(notesJSON);
+    console.log("Notes successfully loaded from localStorage!");
+    return notesArray;
+  } catch (error) {
+    console.error("Error loading notes:", error);
+    // Handle corrupted data by returning an empty array
+    return [];
+  }
+}
+
+// --- Demonstration ---
+
+// 1. Save the initial notes
+saveNotes(notes);
+
+// 2. Load the notes later (e.g., when the app starts)
+const loadedNotes = loadNotes();
+
+console.log("\n--- Loaded Notes ---");
+console.log(loadedNotes);
+// 3. Loading Data (Deserialization)
+// Retrieve the string and convert it back into a JavaScript object/array.
+function loadNotes() {
+  try {
+    const notesJSON = localStorage.getItem('notesData');
+
+    if (notesJSON === null) {
+      console.log("No notes found in localStorage. Returning an empty array.");
+      return []; // Return an empty array if nothing is stored yet
+    }
+
+    // Convert the JSON string back to a JavaScript object/array
+    const notesArray = JSON.parse(notesJSON);
+if (notesJSON === null) {
+      console.log("No notes found in localStorage. Returning an empty array.");
+      return []; // Return an empty array if nothing is stored yet
+    }
+
+    // Convert the JSON string back to a JavaScript object/array
+    const notesArray = JSON.parse(notesJSON);
+    console.log("Notes successfully loaded from localStorage!");
+    return notesArray;
+  } catch (error) {
+    console.error("Error loading notes:", error);
+    // Handle corrupted data by returning an empty array
+    return [];
+  }
+}
+/ --- Demonstration ---
+
+// 1. Save the initial notes
+saveNotes(notes);
+
+// 2. Load the notes later (e.g., when the app starts)
+const loadedNotes = loadNotes();
+
+console.log("\n--- Loaded Notes ---");
+console.log(loadedNotes);

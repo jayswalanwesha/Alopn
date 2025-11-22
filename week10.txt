@@ -1,0 +1,41 @@
+/**
+ * 💡 Example using fetch, then, and catch 💡
+ *
+ * This example fetches a list of posts from a public test API.
+ */
+
+// 1. Define the URL for the API endpoint
+const apiURL = 'https://jsonplaceholder.typicode.com/posts/1';
+
+console.log(Attempting to fetch data from: ${apiURL});
+
+// 2. Use fetch() to start the request
+fetch(apiURL)
+    // 3. First .then(): Check if the response is OK and parse the body as JSON
+    .then(response => {
+        // Check if the request was successful (status code 200-299)
+        if (!response.ok) {
+            // Throw an error if the status is not successful
+            throw new Error(HTTP error! Status: ${response.status});
+        }
+        // Return the response body parsed as JSON
+        return response.json();
+    })
+    // 4. Second .then(): Handle the parsed data
+    .then(data => {
+        console.log('✅ Data successfully fetched:');
+        console.log(data); // The actual JavaScript object/array
+ 
+        // Example of using the data:
+        console.log(\nPost Title: ${data.title});
+        console.log(Post Body:\n${data.body});
+    })
+    // 5. .catch(): Handle any errors that occurred
+    .catch(error => {
+        console.error('❌ An error occurred during the fetch operation:');
+        console.error(error.message);
+        // You would typically update the UI to show an error message here
+    });
+
+console.log('Request initiated. The code continues to run while the request is pending (Async).');
+// Due to asynchronous nature, this line will likely print BEFORE the 'Data successfully fetched' line.

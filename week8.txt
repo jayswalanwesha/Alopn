@@ -1,0 +1,55 @@
+html
+<div id="clock">Loading...</div>
+<br>
+<button onclick="startClock()">Start Clock</button>
+<button onclick="stopClock()">Stop Clock</button>
+javascrpit
+let clockInterval; // Variable to hold the interval ID
+
+/**
+ * Updates the digital clock display with the current time.
+ */
+function updateClock() {
+    // 1. Create a new Date object
+    const now = new Date(); 
+    
+    // Get hours, minutes, and seconds and pad them with a leading zero if needed
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
+    
+    const timeString = ${hours}:${minutes}:${seconds};
+    
+    // Update the DOM element
+    document.getElementById('clock').textContent = timeString;
+}
+
+/**
+ * Starts the digital clock using setInterval.
+ */
+/**
+ * Starts the digital clock using setInterval.
+ */
+function startClock() {
+    if (!clockInterval) {
+        updateClock(); // Call immediately to show time right away
+        // 2. setInterval: Calls a function repeatedly every N milliseconds (1000ms = 1 second)
+        clockInterval = setInterval(updateClock, 1000); 
+        console.log("Clock started.");
+    }
+}
+
+/**
+ * Stops the digital clock using clearInterval.
+ */
+function stopClock() {
+    // 3. clearInterval: Stops the execution set up by setInterval
+    clearInterval(clockInterval); 
+    clockInterval = null; // Reset the variable
+    console.log("Clock stopped.");
+}
+
+// Start the clock automatically when the script loads
+// startClock();
+// Start the clock automatically when the script loads
+// startClock();

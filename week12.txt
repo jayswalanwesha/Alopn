@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Quiz App</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #quiz-container { max-width: 600px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; }
+        .answer-btn { display: block; width: 100%; padding: 10px; margin: 5px 0; background: #f4f4f4; border: none; cursor: pointer; }
+        .answer-btn:hover { background: #ddd; }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <h1>Final Project: Quiz App</h1>
+        <div id="question-text"></div>
+        <div id="answer-buttons"></div>
+        <button id="next-btn" style="display:none;">Next Question</button>
+        <div id="result"></div>
+    </div>
+
+    <script src="quiz.js"></script> 
+    </body>
+</html>
+javascript
+// 1. Define the Quiz Questions
+const questions = [
+    {
+        question: "What is the capital of France?",
+        answers: [
+            { text: "London", correct: false },
+            { text: "Paris", correct: true },
+            { text: "Rome", correct: false },
+            { text: "Berlin", correct: false }
+        ]
+    },
+    {
+        question: "Which planet is known as the Red Planet?",
+        answers: [
+            { text: "Mars", correct: true },
+            { text: "Jupiter", correct: false },
+            { text: "Venus", correct: false },
+            { text: "Saturn", correct: false }
+        ]
+    }
+];
+
+// 2. Get DOM elements
+const questionText = document.getElementById('question-text');
+const answerButtons = document.getElementById('answer-buttons');
+const nextButton = document.getElementById('next-btn');
+const resultDiv = document.getElementById('result');
+
+// 3. Initialize state variables
+let currentQuestionIndex = 0;
+let score = 0;
+// 4. Function to start the quiz
+function startQuiz() {
+    currentQuestionIndex = 0;
+    score = 0;
+    nextButton.style.display = 'none';
+    resultDiv.textContent = '';
+    showQuestion();
+}
+
+// 5. Function to display a question
+function showQuestion() {
+    // Clear previous answers
+    answerButtons.innerHTML = '';
+    nextButton.style.display = 'none';
+ nextButton.style.display = 'none';
+
+    // Get current question
+    let currentQuestion = questions[currentQuestionIndex];
+    let questionNo = currentQuestionIndex + 1;
+    
+    // Update question text
+    questionText.innerHTML = ${questionNo}. ${currentQuestion.question};
+
+    // Create buttons for each answer
+    currentQuestion.answers.forEach(answer => {
+        const button = document.createElement('button');
+        button.textContent = answer.text;
+        button.classList.add('answer-btn');
+        answerButtons.appendChild(button);
+        
+        // Add data attribute for correctness and event listener
+        if (answer.correct) {
+            button.dataset.correct = true;
+        }
+        button.addEventListener('click', selectAnswer);
+    });
+}
+
+// 6. Function to handle an answer selection
+function selectAnswer(e) {
+    const selectedBtn = e.target;
+ const selectedBtn = e.target;
+    const isCorrect = selectedBtn.dataset.correct === 'true';
+
+    // Disable all buttons after a selection
+    Array.from(answerButtons.children).forEach(button => {
+        if (button.dataset.correct === 'true') {
+            button.style.backgroundColor = 'lightgreen'; // Highlight correct answer
+        }
+        button.disabled = true;
+    });
+
+    if (isCorrect) {
+        score++;
+        selectedBtn.style.backgroundColor = 'lightgreen';
+    } else {
+        selectedBtn.style.backgroundColor = 'lightcoral';
+    }
+  // Show the "Next" button
+    nextButton.style.display = 'block';
+}
+
+// 7. Function to show final results
+function showResult() {
+    answerButtons.innerHTML = '';
+    questionText.textContent = Quiz finished!;
+    resultDiv.textContent = You scored ${score} out of ${questions.length}!;
+    nextButton.textContent = 'Restart Quiz';
+    nextButton.style.display = 'block';
+}
+
+// 8. Function to handle the "Next" button click
+function handleNextButton() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        // More questions left
+        nextButton.textContent = 'Next Question';
+        showQuestion();
+    } else {
+        // Quiz is over
+        showResult();
+    }
+}
+// 9. Event listener for the "Next" button
+nextButton.addEventListener('click', () => {
+    if (currentQuestionIndex < questions.length) {
+        handleNextButton();
+    } else {
+        startQuiz(); // Restart if the quiz is over
+    }
+});
+
+// Start the quiz when the page loads
+startQuiz();
